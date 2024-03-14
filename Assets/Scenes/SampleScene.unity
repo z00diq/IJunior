@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74d50c1817e378a46a4ebaf4e499f10f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scaleSpeed: 0.1
+  _scaleSpeed: 0.7
   _maxScale: {x: 5, y: 5, z: 5}
 --- !u!1 &963194225
 GameObject:

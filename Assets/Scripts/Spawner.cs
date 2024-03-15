@@ -28,7 +28,7 @@ public class Spawner : MonoBehaviour
     {
         var timer = new WaitForSecondsRealtime(_spawnTime);
 
-        while (true)
+        while (_isContinueSpawn)
         {
             Spawn();
             yield return timer;       

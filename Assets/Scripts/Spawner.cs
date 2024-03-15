@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
@@ -6,16 +7,31 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Transform[] _spawnPoints;
     [SerializeField] private float _spawnTime;
 
-    private float _elapsedTime=0;
+    private bool _isContinueSpawn;
 
-    private void Update()
+    private void OnEnable()
     {
-        _elapsedTime += Time.deltaTime;
+        _isContinueSpawn = true;
+    }
 
-        if(_elapsedTime >= _spawnTime)
+    private void OnDisable()
+    {
+        _isContinueSpawn = false;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(nameof(SpawnUntil));
+    }
+
+    private IEnumerator SpawnUntil()
+    {
+        var timer = new WaitForSecondsRealtime(_spawnTime);
+
+        while (true)
         {
             Spawn();
-            _elapsedTime = 0;
+            yield return timer;       
         }
     }
 

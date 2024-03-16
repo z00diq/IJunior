@@ -1,10 +1,11 @@
+using Assets.Scripts;
 using System.Collections;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private Vector3 _direction;
-    [SerializeField] private Transform[] _spawnPoints;
+    [SerializeField] private SpawnPoint[] _spawnPoints;
     [SerializeField] private float _spawnTime;
 
     private bool _isContinueSpawn;
@@ -38,14 +39,6 @@ public class Spawner : MonoBehaviour
     private void Spawn()
     {
         int pointIndex = Random.Range(0, _spawnPoints.Length);
-        Create(pointIndex);
-    }
-
-    private GameObject Create(int pointIndex)
-    {
-        GameObject creature = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-        creature.transform.position = _spawnPoints[pointIndex].position;
-        creature.AddComponent<Mover>().Initialize(_direction);
-        return creature;
+        _spawnPoints[pointIndex].Spawn();
     }
 }

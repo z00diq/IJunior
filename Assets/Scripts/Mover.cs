@@ -2,12 +2,7 @@
 using UnityEngine;
 internal class Mover: MonoBehaviour
 {
-    private Vector3 _moveDirection;
-
-    public void Initialize(Vector3 direction)
-    {
-        _moveDirection = direction;
-    }
+    private Transform _target;
 
     private void Start()
     {
@@ -16,6 +11,12 @@ internal class Mover: MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(_moveDirection.normalized*Time.deltaTime);
+        transform.LookAt(_target);
+        transform.position=Vector3.MoveTowards(transform.position, _target.position, Time.deltaTime);
+    }
+
+    internal void InitTarget(Transform target)
+    {
+        _target = target;
     }
 }

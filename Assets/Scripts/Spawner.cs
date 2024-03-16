@@ -38,8 +38,7 @@ public class Spawner : MonoBehaviour
     private void Spawn()
     {
         int pointIndex = Random.Range(0, _spawnPoints.Length);
-        var spawnedObject = Create(pointIndex);
-        spawnedObject.GetComponent<Mover>();
+        Create(pointIndex);
     }
 
     private GameObject Create(int pointIndex)

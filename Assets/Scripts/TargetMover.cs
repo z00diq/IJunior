@@ -7,10 +7,10 @@ namespace Assets.Scripts
     public class TargetMover:MonoBehaviour
     {
         [SerializeField] private Transform[] _pathPoints;
+        [SerializeField] private float _speed = 10;
 
         private int _index = 0;
         private bool isMove = true;
-        private IEnumerator _enumerator;
 
         private void OnEnable()
         {
@@ -24,29 +24,26 @@ namespace Assets.Scripts
 
         private void Start()
         {
-            _enumerator = Move();
+            StartCoroutine(nameof(Patrol));
         }
 
-        private void Update()
+        private IEnumerator Patrol()
         {
-            _enumerator.MoveNext();
-        }
-
-        private IEnumerator  Move()
-        {
-
             while (isMove)
             {
-                transform.position = Vector3.MoveTowards(transform.position, _pathPoints[_index].position, Time.deltaTime);
-                new WaitWhile(() => transform.position != _pathPoints[_index].position);
+                transform.LookAt(_pathPoints[_index]);
 
+                while(transform.position!= _pathPoints[_index].position)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, _pathPoints[_index].position, Time.deltaTime*_speed);
+                    yield return null;
+                }
+          
                 _index++;
 
                 if (_index == _pathPoints.Length)
                     _index = 0;
             }
-
-            yield break;
         }
     }
 }

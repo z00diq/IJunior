@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    [SerializeField] private Vector3 _direction;
     [SerializeField] private SpawnPoint[] _spawnPoints;
     [SerializeField] private float _spawnTime;
 

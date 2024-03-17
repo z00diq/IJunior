@@ -4,14 +4,15 @@ namespace Assets.Scripts
 {
     public class SpawnPoint : MonoBehaviour
     {
-        [SerializeField] private Mover _spawnCreature;
-        [SerializeField] private TargetMover _target;
+        [SerializeField] private EnemyMover _spawnCreature;
+        [SerializeField] private TargetMover[] _targets;
 
         public void Spawn()
         {
             var creature = Instantiate(_spawnCreature);
 
-            creature.InitTarget(_target.transform);
+            creature.gameObject.transform.position = transform.position;
+            creature.InitTarget(_targets[Random.Range(0,_targets.Length)].transform);
         }
     }
 }

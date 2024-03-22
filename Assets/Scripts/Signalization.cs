@@ -8,13 +8,13 @@ public class Signalization : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Thief>() != null)
+        if (other.gameObject.TryGetComponent(out Thief thief))
             ThiefCameIn?.Invoke();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<Thief>() != null)
+        if (other.gameObject.TryGetComponent(out Thief thief))
             ThiefCameOut?.Invoke();
     }
 }

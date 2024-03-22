@@ -21,20 +21,8 @@ public class NoiseAwaker:MonoBehaviour
         _source.playOnAwake = false;
         _source.loop= true;
         _source.volume = 0;
-        _signaliztion.ThiefCameIn += PlayNoise;
-        _signaliztion.ThiefCameOut += StopNoise;
-    }
-
-    private void StopNoise()
-    {
-        StopNoiseCoroutine();
-        _noiseRoutine = StartCoroutine(nameof(DecreaseNoiseVolume));
-    }
-
-    private void PlayNoise()
-    {
-        StopNoiseCoroutine();
-        _noiseRoutine = StartCoroutine(nameof(IncreaseNoiseVolume));
+        _signaliztion.ThiefCameIn += FadeIn;
+        _signaliztion.ThiefCameOut += FadeOut;
     }
 
     private void StopNoiseCoroutine()
@@ -43,31 +31,33 @@ public class NoiseAwaker:MonoBehaviour
             StopCoroutine(_noiseRoutine);
     }
 
-    private IEnumerator IncreaseNoiseVolume()
+    private void FadeIn()
     {
-        if(_source.isPlaying==false)
-            _source.Play();
-
-        var timer = new WaitForSecondsRealtime(_increaseFrequencyTime);
-
-        while (_source.volume!=_maxVolume)
-        {
-            _source.volume = Mathf.MoveTowards(_source.volume, _maxVolume, _increaseFrequerncyDelta);
-            yield return timer;
-        }
+        StopNoiseCoroutine();
+        _noiseRoutine = StartCoroutine(nameof(PlayOrStopNoise),_maxVolume);
     }
 
-    private IEnumerator DecreaseNoiseVolume()
+    private void FadeOut()
+    {
+        StopNoiseCoroutine();
+        _noiseRoutine = StartCoroutine(nameof(PlayOrStopNoise), 0);
+    }
+
+    private IEnumerator PlayOrStopNoise(float targetVolume)
     {
         var timer = new WaitForSecondsRealtime(_increaseFrequencyTime);
+        
+        if (_source.isPlaying == false)
+            _source.Play();
 
-        while (_source.volume != 0)
+        while (_source.volume != targetVolume)
         {
-            _source.volume = Mathf.MoveTowards(_source.volume, 0, _increaseFrequerncyDelta);
+            _source.volume = Mathf.MoveTowards(_source.volume, targetVolume, _increaseFrequerncyDelta);
             yield return timer;
         }
 
-        _source.Stop();
+        if (_source.volume == 0)
+            _source.Stop();
     }
 }
 

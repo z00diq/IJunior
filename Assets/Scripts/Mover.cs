@@ -2,24 +2,29 @@ using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
+    private const KeyCode MoveForward = KeyCode.W;
+    private const KeyCode MoveBack = KeyCode.S;
+    private const KeyCode MoveRight = KeyCode.D;
+    private const KeyCode MoveLeft = KeyCode.A;
+
     [SerializeField] private float _speed;
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(MoveForward))
         {
             Move(transform.forward);
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (Input.GetKey(MoveBack))
         {
             Move(-transform.forward);
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(MoveRight))
         {
             Move(transform.right);
         }
-        else if (Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(MoveLeft))
         {
             Move(-transform.right);
         }

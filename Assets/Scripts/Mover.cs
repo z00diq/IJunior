@@ -1,24 +1,22 @@
+using System;
 using UnityEngine;
 
 public class Mover : MonoBehaviour
 {
-    private const KeyCode MoveForward = KeyCode.W;
-    private const KeyCode MoveBack = KeyCode.S;
+    
     private const KeyCode MoveRight = KeyCode.D;
     private const KeyCode MoveLeft = KeyCode.A;
 
     [SerializeField] private float _speed;
+    [SerializeField] private SpriteRenderer _renderer;
+    [SerializeField] private Animator _animator;
+
+    private bool isMoving = false;
 
     private void Update()
     {
-        if (Input.GetKey(MoveForward))
-        {
-            Move(transform.forward);
-        }
-        else if (Input.GetKey(MoveBack))
-        {
-            Move(-transform.forward);
-        }
+        isMoving = false;
+        _animator.SetBool(nameof(isMoving), isMoving);
 
         if (Input.GetKey(MoveRight))
         {
@@ -26,14 +24,17 @@ public class Mover : MonoBehaviour
         }
         else if (Input.GetKey(MoveLeft))
         {
+            _renderer.flipX = true;
             Move(-transform.right);
         }
     }
 
     private void Move(Vector3 normilizedDirection)
     {
+        isMoving = true;
         float moveDistance = Time.deltaTime * _speed;
         normilizedDirection = normilizedDirection.normalized;
+        _animator.SetBool(nameof(isMoving),isMoving);
         transform.Translate(normilizedDirection * moveDistance);
     }
 }

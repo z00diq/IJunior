@@ -8,7 +8,7 @@ public class Jumper : MonoBehaviour
     
     [SerializeField] private Rigidbody2D _rigidBody;
     [SerializeField] private float _jumpImpulse = 2;
-    [SerializeField] private ContactFilter2D _contactFilter;
+    [SerializeField] private Animator _animator;
 
     private float isGroundedDistance = 0.1f;
 
@@ -20,6 +20,7 @@ public class Jumper : MonoBehaviour
 
     private void Jump()
     {
+        _animator.SetTrigger(nameof(Jump));
         _rigidBody.AddForce(transform.up * _jumpImpulse, ForceMode2D.Impulse);
     }
 

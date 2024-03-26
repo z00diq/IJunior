@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class TargetMover : MonoBehaviour
 {
@@ -28,9 +29,12 @@ public class TargetMover : MonoBehaviour
     {
         while (isMove)
         {
-            while (transform.position != _pathPoints[_index].position)
+            while (Math.Abs(transform.position.x - _pathPoints[_index].position.x)>0.01f)
             {
-                transform.position = Vector3.MoveTowards(transform.position, _pathPoints[_index].position, Time.deltaTime * _speed);
+                Vector3 newPosition = Vector2.MoveTowards(transform.position, _pathPoints[_index].position, Time.deltaTime * _speed);
+                newPosition.y = transform.position.y;
+                newPosition.z = transform.position.z;
+                transform.position = newPosition;
                 yield return null;
             }
 

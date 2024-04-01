@@ -280,7 +280,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.03333336, y: 0.03333336, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -2204,7 +2204,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.03333336, y: 0.03333336, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -6872,7 +6872,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.03333336, y: 0.03333336, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -8371,6 +8371,7 @@ GameObject:
   - component: {fileID: 843024710}
   - component: {fileID: 843024712}
   - component: {fileID: 843024713}
+  - component: {fileID: 843024714}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -8386,7 +8387,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 843024708}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.57, y: -2.59, z: -0.039582547}
+  m_LocalPosition: {x: -5.08, y: 2.62, z: -0.039582547}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8407,8 +8408,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.019994259, y: 0.6150981}
-  m_Size: {x: 0.92104435, y: 1.3068898}
+  m_Offset: {x: -0.25719595, y: 0.7205211}
+  m_Size: {x: 0.85779095, y: 1.3068898}
   m_Direction: 0
 --- !u!50 &843024711
 Rigidbody2D:
@@ -8461,6 +8462,20 @@ MonoBehaviour:
   _rigidBody: {fileID: 843024711}
   _jumpImpulse: 6
   _animator: {fileID: 2141070245}
+--- !u!114 &843024714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843024708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d3fce83fec235942ab1c0db082e8b3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealthValue: 10
+  _damage: 2
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -8591,6 +8606,7 @@ GameObject:
   - component: {fileID: 1068115712}
   - component: {fileID: 1068115710}
   - component: {fileID: 1068115714}
+  - component: {fileID: 1068115715}
   m_Layer: 2
   m_Name: Enemy
   m_TagString: Untagged
@@ -8643,7 +8659,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1068115709}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.61, y: 2.68, z: -0.039582547}
+  m_LocalPosition: {x: -0.31, y: 1.23, z: -0.039582547}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8667,6 +8683,20 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.6417552}
   m_Size: {x: 0.5, y: 1.3033755}
   m_Direction: 0
+--- !u!114 &1068115715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068115709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dbfe3b26b2e49c4bb9df5671ddcf889, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damageValue: 5
+  _maxHealthValue: 10
 --- !u!1 &1072533863
 GameObject:
   m_ObjectHideFlags: 0
@@ -8983,7 +9013,7 @@ TilemapRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
-  m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
+  m_ChunkCullingBounds: {x: 0.03333336, y: 0.03333336, z: 0}
   m_MaxChunkCount: 16
   m_MaxFrameAge: 16
   m_SortOrder: 0
@@ -9647,7 +9677,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141070243}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.037, z: 0}
+  m_LocalPosition: {x: -0.26, y: 0.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

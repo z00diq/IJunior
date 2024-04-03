@@ -1,6 +1,5 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class Jumper : MonoBehaviour
 {
@@ -10,11 +9,11 @@ public class Jumper : MonoBehaviour
     [SerializeField] private float _jumpImpulse = 2;
     [SerializeField] private Animator _animator;
 
-    private float isGroundedDistance = 0.1f;
+    private bool isGrounded;
 
     private void Update()
     {
-        if (Input.GetKeyDown(JumpKey) && IsGrounded())
+        if (Input.GetKeyDown(JumpKey) && isGrounded)
             Jump();
     }
 
@@ -24,12 +23,16 @@ public class Jumper : MonoBehaviour
         _rigidBody.AddForce(transform.up * _jumpImpulse, ForceMode2D.Impulse);
     }
 
-    private bool IsGrounded()
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        Ray2D ray = new Ray2D(transform.position,Vector2.down);
-        var result = Physics2D.Raycast(ray.origin, ray.direction);
-        
-        return result.distance< isGroundedDistance;
+        if (collision.collider is CompositeCollider2D) 
+            isGrounded = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider is CompositeCollider2D)
+            isGrounded = false;
     }
 }
 

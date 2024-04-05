@@ -14,7 +14,7 @@ namespace Assets.Scripts
 
         public void TakeDamage(float value)
         {
-            throw new System.NotImplementedException();
+            _health.TakeDamage(value);
         }
 
         private void Awake()
@@ -24,11 +24,17 @@ namespace Assets.Scripts
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if(collision.gameObject.TryGetComponent(out Enemy enemy))
+            if(collision.gameObject.TryGetComponent(out EnemyRoot enemy))
             {
-                Vector2 aaa =  (Vector2)transform.position- (Vector2)enemy.transform.position;
-                if (aaa.y > enemy.transform.localScale.y * _applayingDamageModifier)
-                    (enemy as IDamageable).TakeDamage(_damage); 
+                Vector2 substract =  (Vector2)transform.position- (Vector2)enemy.transform.position;
+                
+                if (substract.y > enemy.transform.localScale.y * _applayingDamageModifier)
+                    (enemy as IDamageable).TakeDamage(_damage);
+                else 
+                {
+                    Debug.Log("a");
+                    TakeDamage(enemy.Damage);
+                }
             }
         }
     }

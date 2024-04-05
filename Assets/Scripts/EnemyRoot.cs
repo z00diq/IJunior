@@ -2,10 +2,11 @@
 
 namespace Assets.Scripts
 {
-    internal class Enemy : MonoBehaviour,IDamageable
+    internal class EnemyRoot : MonoBehaviour,IDamageable
     {
         [SerializeField] private float _damageValue;
         [SerializeField] private float _maxHealthValue;
+
         private Health _health;
 
         public float Damage => _damageValue;

@@ -4,6 +4,8 @@ namespace Assets.Scripts
 {
     internal class AidKit: MonoBehaviour
     {
-        public float Value { get; internal set; }
+        [SerializeField] private float _value;
+
+        public float Value => _value;
     }
 }

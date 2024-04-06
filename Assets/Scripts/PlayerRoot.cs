@@ -15,6 +15,9 @@ namespace Assets.Scripts
         public void TakeDamage(float value)
         {
             _health.TakeDamage(value);
+
+            if (_health.CurrentHealth == 0)
+                Destroy(gameObject);
         }
 
         private void Awake()
@@ -32,9 +35,14 @@ namespace Assets.Scripts
                     (enemy as IDamageable).TakeDamage(_damage);
                 else 
                 {
-                    Debug.Log("a");
                     TakeDamage(enemy.Damage);
                 }
+            }
+
+            if (collision.gameObject.TryGetComponent(out AidKit kit))
+            {
+                Destroy(kit.gameObject);
+                _health.RestoreHealth(kit.Value);
             }
         }
     }

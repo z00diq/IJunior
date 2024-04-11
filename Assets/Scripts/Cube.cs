@@ -8,13 +8,14 @@ public class Cube : MonoBehaviour
     private float _minSpawnCount = 2;
     private float _maxSpawnCount = 4;
     private float _reduceModifier = 0.5f;
-    private Color _color;
 
     public void OnCubeClick()
     {
         float spawnChance = Random.Range(0, 101);
         float count = Random.Range(_minSpawnCount, _maxSpawnCount);
-        _color = CreateRandomColor();
+
+        Instantiate(_explosionFX,transform.position,Quaternion.identity);
+
         if (spawnChance <= _spawnChance)
             for (int i = 0; i < count; i++)
                 Instantiate();
@@ -24,30 +25,26 @@ public class Cube : MonoBehaviour
 
     private void Instantiate()
     {
-        Material baseMaterial = new Material(gameObject.GetComponent<MeshRenderer>().material);
-
-        baseMaterial.color = _color;
+        GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         
-        GameObject meshCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        meshCube.transform.position = transform.position;
-        Vector3 currentScale = transform.localScale;
-        currentScale *= _reduceModifier;
-        meshCube.transform.localScale = currentScale;
-        meshCube.GetComponent<MeshRenderer>().material = baseMaterial;
+        newCube.transform.position = transform.position;
+        Vector3 newScale = transform.localScale * _reduceModifier;
+        newCube.transform.localScale = newScale;
+        
+        newCube.GetComponent<MeshRenderer>().material.color = CreateRandomColor();
+        newCube.AddComponent<Rigidbody>();
 
-
-        meshCube.AddComponent<Rigidbody>();
-        Cube cube = meshCube.AddComponent<Cube>();
+        Cube cube = newCube.AddComponent<Cube>();
         cube._spawnChance = _spawnChance * _reduceModifier;
         cube._explosionFX = _explosionFX;
     }
 
     private Color CreateRandomColor()
     {
-        float red = Random.Range(byte.MinValue, byte.MaxValue);
-        float green = Random.Range(byte.MinValue, byte.MaxValue);
-        float blue = Random.Range(byte.MinValue, byte.MaxValue);
+        float red = Random.Range(0f,1f);
+        float green = Random.Range(0f, 1f); ;
+        float blue = Random.Range(0f, 1f); ;
 
-        return new Color(red,green,blue,.5f);
+        return new Color(red,green,blue);
     }
 }

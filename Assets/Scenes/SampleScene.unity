@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17728452, g: 0.22194156, b: 0.30418107, a: 1}
+  m_IndirectSpecularColor: {r: 0.17728439, g: 0.22194164, b: 0.30418092, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6624c8a293b64c04ea6a5f3f4e9e11b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawnCount: 0
 --- !u!1 &1609830661
 GameObject:
   m_ObjectHideFlags: 0
@@ -665,7 +666,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fa0f165c8d1ab04d8e8a46b891980cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _explosionFX: {fileID: 100000, guid: 10f42fca98dc28042b22d432c3e4095b, type: 3}
+  _explosionFX: {fileID: 100010, guid: 50c6dc24fab475744a6bc7e1dda3d427, type: 3}
+  _configuration:
+    _spawnCount: 5
+    _scale: {x: 1, y: 1, z: 1}
+    _reduceModificator: 0.5
+    _spawnChance: 100
 --- !u!65 &1722146416
 BoxCollider:
   m_ObjectHideFlags: 0

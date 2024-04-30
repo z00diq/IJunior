@@ -1,5 +1,5 @@
 ﻿
-using System.Collections.Generic;
+using MyValueViewPckage;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -9,6 +9,7 @@ namespace Assets.Scripts
         [SerializeField] private float _maxHealthValue;
         [SerializeField] private float _damage;
         [SerializeField] private float _applayingDamageModifier = 0.8f;
+        [SerializeField] private Indicator _healthBar;
 
         private Health _health;
 
@@ -23,6 +24,12 @@ namespace Assets.Scripts
         private void Awake()
         {
             _health = new Health(_maxHealthValue);
+            _healthBar.Construct(_health);
+        }
+
+        private void OnDisable()
+        {
+            _healthBar.Deconstruct();
         }
 
         private void OnCollisionEnter2D(Collision2D collision)

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using MyValueViewPckage;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -15,6 +16,9 @@ namespace Assets.Scripts
         [SerializeField] private Transform _target;
         [SerializeField] private float _speed;
 
+        [Header("Views")]
+        [SerializeField] private Indicator _healthView;
+
         private Health _health;
         private MoveSetSwithcher _moveSetSwithcher;
         public float Damage => _damageValue;
@@ -25,12 +29,20 @@ namespace Assets.Scripts
             TargetPursuer pursuer = new TargetPursuer(_self,_target, _speed);
 
             _health = new Health(_maxHealthValue);
+            _healthView.Construct(_health);
             _moveSetSwithcher = new MoveSetSwithcher(patrol, pursuer, _distanceToActivate, _self, _target);
         }
+
+        
 
         private void Update()
         {
             _moveSetSwithcher.Update();
+        }
+
+        private void OnDisable()
+        {
+            _healthView.Deconstruct();
         }
 
         public void TakeDamage(float value)

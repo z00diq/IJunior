@@ -1,11 +1,14 @@
-﻿using System;
+﻿using MyValueViewPckage;
+using System;
 
 namespace Assets.Scripts
 {
-    public class Health
+    public class Health:IValueChanging
     {
         private float _maxValue;
         private float _value;
+
+        public event Action<float, float> ValueChanged;
 
         public float CurrentHealth => _value;
 
@@ -18,11 +21,13 @@ namespace Assets.Scripts
         public void TakeDamage(float value)
         {
             _value = Math.Clamp(_value - value, 0, _maxValue);
+            ValueChanged?.Invoke(_value, _maxValue);
         }
 
         public void RestoreHealth(float value)
         {
             _value = Math.Clamp(_value + value, 0, _maxValue);
+            ValueChanged?.Invoke(_value, _maxValue);
         }
     }
 }

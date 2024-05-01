@@ -12,19 +12,18 @@ namespace Assets.Scripts
         [SerializeField] private Indicator _healthBar;
 
         private Health _health;
-
-        public void TakeDamage(float value)
-        {
-            _health.TakeDamage(value);
-
-            if (_health.CurrentHealth == 0)
-                Destroy(gameObject);
-        }
+        private Vampirism _vampirism;
 
         private void Awake()
         {
             _health = new Health(_maxHealthValue);
+            _vampirism = new Vampirism(_health, transform);
             _healthBar.Construct(_health);
+        }
+
+        private void Update()
+        {
+            _vampirism.Update();
         }
 
         private void OnDisable()
@@ -51,6 +50,14 @@ namespace Assets.Scripts
                 Destroy(kit.gameObject);
                 _health.RestoreHealth(kit.Value);
             }
+        }
+
+        public void TakeDamage(float value)
+        {
+            _health.TakeDamage(value);
+
+            if (_health.CurrentHealth == 0)
+                Destroy(gameObject);
         }
     }
 }

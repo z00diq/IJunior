@@ -21,7 +21,9 @@ namespace Assets.Scripts
 
         private Health _health;
         private MoveSetSwithcher _moveSetSwithcher;
+
         public float Damage => _damageValue;
+        public Health Health => _health;
 
         private void Awake()
         {

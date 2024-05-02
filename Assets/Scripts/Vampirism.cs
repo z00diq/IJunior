@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -15,11 +16,15 @@ namespace Assets.Scripts
         private float _spellDuration = 6f;
         private bool _spellIsReady = true;
         private Transform _position;
+        private BoxCollider2D _spellArea;
 
         public Vampirism(Health health, Transform position)
         {
             _health = health;
             _position = position;
+            _spellArea = position.gameObject.AddComponent<BoxCollider2D>();
+            _spellArea.size = new Vector2(_spellDistance, _spellDistance);
+            _spellArea.isTrigger = true;
         }
 
         public void Update()
@@ -52,13 +57,16 @@ namespace Assets.Scripts
         {
             enemyHealth = null;
             EnemyRoot enemy = null;
-            RaycastHit2D hitInfo = Physics2D.Raycast(_position.position, Vector3.right,5);
 
-            if (hitInfo.collider?.TryGetComponent(out enemy) == true)
-            {
-                enemyHealth = enemy.Health;
-                return true;
-            }
+            ContactFilter2D filter = new ContactFilter2D();
+            List<Collider2D> contacts = new();
+            _spellArea.OverlapCollider(filter.NoFilter(), contacts);
+
+            //if (hitInfo.collider?.TryGetComponent(out enemy) == true)
+            //{
+            //    enemyHealth = enemy.Health;
+            //    return true;
+            //}
 
             return false;
         }

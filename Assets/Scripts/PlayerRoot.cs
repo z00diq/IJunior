@@ -18,7 +18,7 @@ namespace Assets.Scripts
         {
             _health = new Health(_maxHealthValue);
             _vampirism = new Vampirism(_health, transform);
-            _healthBar.Construct(_health);
+           
         }
 
         private void Update()
@@ -26,8 +26,15 @@ namespace Assets.Scripts
             _vampirism.Update();
         }
 
+        private void OnEnable()
+        {
+            _health.Dieing += Die;
+            _healthBar.Construct(_health);
+        }
+
         private void OnDisable()
         {
+            _health.Dieing -= Die;
             _healthBar.Deconstruct();
         }
 
@@ -58,6 +65,11 @@ namespace Assets.Scripts
 
             if (_health.CurrentHealth == 0)
                 Destroy(gameObject);
+        }
+
+        private void Die()
+        {
+            Destroy(gameObject);
         }
     }
 }

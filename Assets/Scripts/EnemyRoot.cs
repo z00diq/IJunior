@@ -29,30 +29,36 @@ namespace Assets.Scripts
         {
             PatrolMover patrol = GetComponent<PatrolMover>();
             TargetPursuer pursuer = new TargetPursuer(_self,_target, _speed);
-
             _health = new Health(_maxHealthValue);
-            _healthView.Construct(_health);
+            
             _moveSetSwithcher = new MoveSetSwithcher(patrol, pursuer, _distanceToActivate, _self, _target);
         }
-
-        
 
         private void Update()
         {
             _moveSetSwithcher.Update();
         }
 
+        private void OnEnable()
+        {
+            _healthView.Construct(_health);
+            _health.Dieing += Die;
+        }
+
         private void OnDisable()
         {
             _healthView.Deconstruct();
+            _health.Dieing -= Die;
         }
 
         public void TakeDamage(float value)
         {
             _health.TakeDamage(value);
+        }
 
-            if (_health.CurrentHealth == 0)
-                Destroy(gameObject);
+        private void Die()
+        {
+            Destroy(gameObject);
         }
     }
 }

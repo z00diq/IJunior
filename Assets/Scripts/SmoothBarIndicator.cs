@@ -18,7 +18,7 @@ namespace MyValueViewPckage
         {
             float nextValue = value / maxValue;
 
-            while (_slider.value != nextValue)
+            while (Mathf.Abs(_slider.value - nextValue)>0.0001f)
             {
                 _slider.value = Mathf.MoveTowards(_slider.value, nextValue, Time.deltaTime);
                 await Task.Yield();

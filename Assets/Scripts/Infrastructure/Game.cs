@@ -9,6 +9,7 @@ public class Game : IUpdatable
     private Bird _bird;
     private EnemyGenerator _enemyGenerator;
     private List<IUpdatable> _updatables;
+    private List<IStartable> _startables;
     private BirdTracker _birdTracker;
     private bool isPlaying = false;
     private StartGameScreen _startScreen;
@@ -20,11 +21,19 @@ public class Game : IUpdatable
         EnemyGeneratorSetup generatorSetup = setup.EnemyGeneratorSetup;
         _birdTracker = birdTracker;
         _updatables = new List<IUpdatable>();
+        _startables = new List<IStartable>();
         _bird = Bird.Instantiate(birdSetup.Prefab, birdSpawnPoint.position, Quaternion.identity);
         _bird.Initialize(birdSetup);
         _enemyGenerator = new EnemyGenerator(generatorSetup, enemySpawnArea,enemyDestoryer);
+        _startables.Add(_bird);
+        _startables.Add(_enemyGenerator);
         _updatables.Add(_bird);
         _updatables.Add(_enemyGenerator);
+    }
+
+    ~Game()
+    {
+        _bird.CollisionHandler.CollisionDetected -= OnCollisionDetected;
     }
 
     public Bird Bird=>_bird;
@@ -41,7 +50,7 @@ public class Game : IUpdatable
 
     public void Start()
     {
-        foreach (IUpdatable item in _updatables)
+        foreach (IStartable item in _startables)
         {
             item.Start();
         }
@@ -76,10 +85,5 @@ public class Game : IUpdatable
         _enemyGenerator.Reset();
         _reloadScreen.Close();
         Time.timeScale = 1;
-    }
-
-    ~Game()
-    {
-        _bird.CollisionHandler.CollisionDetected -= OnCollisionDetected;
     }
 }

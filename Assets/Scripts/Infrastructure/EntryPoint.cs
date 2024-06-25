@@ -19,11 +19,6 @@ public class EntryPoint: MonoBehaviour
         _game.Initialize(_startScreen, _realoadScreen);
     }
 
-    private void Start()
-    {
-        
-    }
-
     private void Update()
     {
         _game.Update();

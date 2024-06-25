@@ -2,7 +2,7 @@
 using UnityEngine.Pool;
 using Object = UnityEngine.Object;
 
-public class EnemyGenerator: IUpdatable
+public class EnemyGenerator: IUpdatable, IStartable
 {
     private ObjectPool<Enemy> _enemies;
     private EnemyGeneratorSetup _generatorSetup;
@@ -33,6 +33,11 @@ public class EnemyGenerator: IUpdatable
            );
 
         _destoryer.EnemyTriggered += _enemies.Release;
+    }
+
+    ~EnemyGenerator()
+    {
+        _destoryer.EnemyTriggered -= _enemies.Release;
     }
 
     public void Start()
@@ -93,11 +98,6 @@ public class EnemyGenerator: IUpdatable
     internal void Reset()
     {
         _enemies.Clear();
-    }
-
-    ~EnemyGenerator()
-    {
-        _destoryer.EnemyTriggered -= _enemies.Release;
     }
 }
 

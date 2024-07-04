@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class ShpereMover : MonoBehaviour
+public class Mover : MonoBehaviour
 {
     [SerializeField] private Vector3 _endPoint;
     [SerializeField] private float _duration = 3f;

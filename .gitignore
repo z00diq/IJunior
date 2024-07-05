@@ -62,3 +62,5 @@ crashlytics-build.properties
 
 *.suo
 *.rar
+Assets/Plugins/Demigiant/DOTween/Editor/Imgs
+Recordings
